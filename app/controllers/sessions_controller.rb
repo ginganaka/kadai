@@ -21,6 +21,11 @@ class SessionsController < ApplicationController
   end
 
   private
+  
+  def password_params
+    params.require(:session).permit(:password)
+  end
+
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -29,12 +34,8 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:email)
   end
   
- def log_out
+  def log_out
     session.delete(:user_id)
     @current_user = nil
   end
 end
-
-   def password_params
-    params.require(:session).permit(:password)
-  end
